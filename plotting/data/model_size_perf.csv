@@ -1,0 +1,16 @@
+Model Type,All params (B),Active params (B),Harm Acc
+Aegis-D,7,7,78.82
+LlamaGuard3,8,8,79.56
+WildGuard,7,7,88.93
+Llama3,1,1,84.00
+Llama3,3,3,87.11
+Llama3,8,8,86.25
+Llama3,70,70,88.58
+Mistral,7,7,84.18
+Mistral,12,12,85.28
+Mistral,23,23,85.95
+OLMo2,1,1,86.15
+OLMo2,7,7,89.44
+OLMo2,13,13,89.97
+OLMo2,32,32,90.18
+OLMoE,7.00,1.00,85.79

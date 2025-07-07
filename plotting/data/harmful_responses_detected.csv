@@ -1,0 +1,4 @@
+model,num_harfmul_questions,num_properly_classified,num_harmful_responses,num_is_harmful_and_was_predicted_as_harmful
+llama3_8b_inst,2000,531,804,104
+mistral7b_inst,2000,1767,1202,1029
+olmo2_1124_7b_inst,2000,1493,42,15
