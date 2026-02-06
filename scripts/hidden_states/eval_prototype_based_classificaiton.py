@@ -111,7 +111,6 @@ def main(
     random_state: int = 42,
     verbose: bool = False,
 ):
-    print(layer_file_name)
     train_hidden_states, train_labels = load_data(
         train_hidden_states_folder / layer_file_name,
         num_samples_per_class=num_samples_per_class,

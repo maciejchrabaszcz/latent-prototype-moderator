@@ -144,6 +144,7 @@ def get_wj_train_dataset_for_router(
     seed: Optional[Any] = None,
     add_generation_prompt: bool = False,
     prompt_only: bool = True,
+    max_length: Optional[int] = None,
     **dataloader_kwargs,
 ):
     dataset = load_from_disk(dataset_path, keep_in_memory=True)
@@ -161,7 +162,10 @@ def get_wj_train_dataset_for_router(
             messages = messages[:1]
         outputs = {
             "input_ids": tokenizer.apply_chat_template(
-                messages, add_generation_prompt=add_generation_prompt
+                messages,
+                add_generation_prompt=add_generation_prompt,
+                truncation=max_length is not None,
+                max_length=max_length,
             )
         }
         outputs["labels"] = example["labels"]
@@ -170,7 +174,7 @@ def get_wj_train_dataset_for_router(
     dataset = dataset.map(process_dataset).remove_columns(
         [x for x in dataset.column_names if x != "labels"]
     )
-    collator = DataCollatorWithPadding(tokenizer=tokenizer)
+    collator = DataCollatorWithPadding(tokenizer=tokenizer, max_length=max_length)
     return DataLoader(dataset, collate_fn=collator, **dataloader_kwargs)
 
 
@@ -217,7 +221,10 @@ def load_prompt_harmfulness_dataset(
     dataset = load_from_disk(dataset_path, keep_in_memory=True)
 
     def process_dataset(example):
-        messages = [{"role": "user", "content": example["prompt"]}]
+        if "messages" not in example:
+            messages = [{"role": "user", "content": example["prompt"]}]
+        else:
+            messages = example["messages"]
         if prompt_template is not None:
             messages = add_classification_template(
                 messages, prompt_template, prompt_only=True

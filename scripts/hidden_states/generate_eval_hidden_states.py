@@ -25,6 +25,7 @@ def main(
     non_harmful_benchmarks_folder: Optional[Path] = None,
     add_generation_prompt: bool = False,
     remove_files_if_exists: bool = True,
+    calculate_mean_hidden_states: bool = False,
 ):
     model, tokenizer = load_model_for_pred(
         base_model=base_model, attn_implementation=None
@@ -46,6 +47,7 @@ def main(
         wj_dataloader,
         save_folder=save_path,
         remove_files_if_exists=remove_files_if_exists,
+        calculate_mean_hidden_states=calculate_mean_hidden_states,
     )
 
     mmlu_dataloader = get_mmlu_dataloader_for_router(
@@ -61,6 +63,7 @@ def main(
         mmlu_dataloader,
         save_folder=save_path,
         remove_files_if_exists=remove_files_if_exists,
+        calculate_mean_hidden_states=calculate_mean_hidden_states,
     )
     if harmful_benchmarks_folder is not None:
         for harmful_benchmark in harmful_benchmarks_folder.iterdir():
@@ -78,6 +81,7 @@ def main(
                 dataset,
                 save_folder=save_path,
                 remove_files_if_exists=remove_files_if_exists,
+                calculate_mean_hidden_states=calculate_mean_hidden_states,
             )
     if non_harmful_benchmarks_folder is not None:
         for non_harmful_benchmark in non_harmful_benchmarks_folder.iterdir():
@@ -95,6 +99,7 @@ def main(
                 dataset,
                 save_folder=save_path,
                 remove_files_if_exists=remove_files_if_exists,
+                calculate_mean_hidden_states=calculate_mean_hidden_states,
             )
 
 
@@ -129,6 +134,11 @@ if __name__ == "__main__":
     parser.add_argument("--harmful_benchmarks_folder", type=Path, default=None)
     parser.add_argument("--non_harmful_benchmarks_folder", type=Path, default=None)
     parser.add_argument("--remove_files_if_exists", type=bool, default=True)
+    parser.add_argument(
+        "--calculate_mean_hidden_states",
+        action="store_true",
+        help="Whether to calculate mean hidden states for each example.",
+    )
     args = parser.parse_args()
 
     main(
@@ -140,4 +150,5 @@ if __name__ == "__main__":
         non_harmful_benchmarks_folder=args.non_harmful_benchmarks_folder,
         add_generation_prompt=args.add_generation_prompt,
         remove_files_if_exists=args.remove_files_if_exists,
+        calculate_mean_hidden_states=args.calculate_mean_hidden_states,
     )

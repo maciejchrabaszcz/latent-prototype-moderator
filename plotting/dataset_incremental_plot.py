@@ -34,11 +34,10 @@ if __name__ == "__main__":
     root = Path(__file__).parent.parent / "plotting"
     output_dir = root / "outputs"
     output_dir.mkdir(parents=True, exist_ok=True)
-    data_path = root / "data" / "multiple_datasets_plot_data.csv"
+    data_path = root / "data" / "multilayer_multiple_datasets_plot_data.csv"
     df = pd.read_csv(data_path)
     df = df[
         df["dataset"].isin(datasets_of_interest)
-        & (df["model_type"] == "Hidden States GDA")
         & (df["num_datasets"].isin(combinations_of_interest))
         & (df["dataset_type"] == "harmful")
     ]
@@ -78,9 +77,12 @@ if __name__ == "__main__":
         marker="o",
         palette=color_palette,
     )
+    # plt.ylim(bottom=76)
     plt.xlabel("Datasets used for prototypes")
     plt.ylabel("Mean F1 Score")
-    plt.legend(title=None, loc="lower right")
+    # plt.legend(title=None, loc="lower right")
+    # move legend outside the plot
+    plt.legend(title=None, loc="center left", bbox_to_anchor=(1, 0.5))
     plt.tight_layout()
     plot.get_figure().savefig(
         output_dir / "dataset_incremental.png",

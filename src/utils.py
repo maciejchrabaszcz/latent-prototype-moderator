@@ -25,6 +25,7 @@ def load_model_for_pred(
         base_model,
         use_fast=use_fast_tokenizer,
         padding_side="left",
+        truncation_side="right",
     )
     if adapter_path is not None:
         if tokenizer.pad_token is None:

@@ -60,6 +60,17 @@ if __name__ == "__main__":
         action="store_true",
         help="Whether to use only the prompt part of the input",
     )
+    parser.add_argument(
+        "--calculate_mean_hidden_states",
+        action="store_true",
+        help="Whether to calculate mean hidden states for each example",
+    )
+    parser.add_argument(
+        "--max_length",
+        type=int,
+        default=None,
+        help="Maximum length of the input sequences. If None, no truncation will be applied.",
+    )
     args = parser.parse_args()
     args.save_folder.mkdir(parents=True, exist_ok=True)
     model, tokenizer = load_model_for_pred(
@@ -86,10 +97,12 @@ if __name__ == "__main__":
         batch_size=args.batch_size,
         add_generation_prompt=args.add_generation_prompt,
         prompt_only=not args.response_dataset,
+        max_length=args.max_length,
     )
     generate_hidden_states(
         model=model,
         dataloader=dataloader,
         save_folder=args.save_folder,
         remove_files_if_exists=args.remove_files_if_exists,
+        calculate_mean_hidden_states=args.calculate_mean_hidden_states,
     )

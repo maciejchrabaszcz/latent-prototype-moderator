@@ -43,7 +43,7 @@ def process_example(example):
             harmful_request=example["prompt_harm_label"],
             refusal=example["response_refusal_label"],
             harmful_response=example["response_harm_label"],
-        ),
+        )
     }
 
 

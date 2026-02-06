@@ -269,10 +269,12 @@ def get_gda_params(means: torch.Tensor, inv_cov: torch.Tensor):
     return {"W": W, "b": b}
 
 
-def get_gda_pred(hidden_states, W, b, return_probs=True):
+def get_gda_pred(hidden_states, W, b, return_probs=True, return_logits=False):
     output = hidden_states @ W.T + b
     if return_probs:
         output = torch.softmax(output, dim=1)
+    elif return_logits:
+        output = output
     else:
         output = torch.argmax(output, dim=1)
     return output
@@ -307,10 +309,12 @@ def get_mahalanobis_pred(hidden_states, means, inv_covs, return_probs=True):
     return output
 
 
-def get_nmc_pred(hidden_states, means, return_probs=True):
+def get_nmc_pred(hidden_states, means, return_probs=True, return_logits=False):
     output = -torch.cdist(hidden_states, means, p=2)
     if return_probs:
         output = torch.softmax(output, dim=1)
+    elif return_logits:
+        output = output
     else:
         output = torch.argmax(output, dim=1)
     return output

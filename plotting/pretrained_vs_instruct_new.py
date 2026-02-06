@@ -72,12 +72,14 @@ models = [
     # "llama3_8b_inst",
     "mistral7b_inst",
     "olmo2_1124_7b_inst",
+    "qwen3_8b",
 ]
 model_names = [
     "WildGuard",
     # "Llama3-8B",
     "Mistral 7B",
-    "Olmo2 7B",
+    "OLMo2 7B",
+    "Qwen3 8B",
 ]
 
 colormap = {"WGMix": "green", "All w/o WGMix": "red", "All": "orange"}
@@ -97,7 +99,7 @@ if __name__ == "__main__":
 
     # Create a new dataframe with the columns: Model, Setting, Acc
     data = []
-    for i in range(3):
+    for i in range(4):
         cur_df = df.iloc[2 * i : 2 * (i + 1)]
         model = cur_df.Model.iloc[0].replace("-PT", "")
         for setting in df.columns[1:3]:
@@ -125,7 +127,7 @@ if __name__ == "__main__":
     plot1 = sns.barplot(
         data=df, x="Model", y="Acc-PT", hue="Setting", palette=colormap, hatch="\\\\"
     )
-    plot1.set_ylim(65, 90)
+    plot1.set_ylim(65, 91)
     plot.set_xticklabels(
         plot.get_xticklabels(),
         fontsize=FONTSIZE_TICKS,
@@ -134,7 +136,7 @@ if __name__ == "__main__":
 
     plot.set_ylabel("F1 Score", fontsize=FONTSIZE_LABELS)
     plot.set_yticklabels(plot.get_yticklabels(), fontsize=FONTSIZE_TICKS)
-    plot.set_ylim(65, 90)
+    plot.set_ylim(65, 91)
 
     # Create legend and move it to the bottom right
     # Make it non transparetnt

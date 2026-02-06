@@ -26,10 +26,12 @@ models_names = {
     "mistral7b_inst": "Mistral-7B",
     "olmo2_1124_7b_inst": "OLMo2-7B",
     "olmo2_1124_13b_inst": "OLMo2-13B",
+    "qwen3_8b": "Qwen3-8B",
 }
 
 color_palette = {
     "Llama3-8B": "#0568e2",
     "Mistral-7B": "#ff7001",
     "OLMo2-7B": "#f0529c",
+    "Qwen3-8B": "#8b33ff",
 }

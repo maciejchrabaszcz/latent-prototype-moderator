@@ -16,6 +16,7 @@ models_to_use = [
     "mistral7b_inst",
     # "olmo2_1124_13b_inst",
     "olmo2_1124_7b_inst",
+    "qwen3_8b"
 ]
 
 model_num_layers = {

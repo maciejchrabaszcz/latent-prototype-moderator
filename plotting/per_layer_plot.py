@@ -7,13 +7,14 @@ import seaborn as sns
 from plotting.utils import color_palette, flatten_plots, models_names, set_plot_style
 
 set_plot_style()
-flatten_plots()
+# flatten_plots()
 models_to_use = [
     "llama3_8b_inst",
     # "mistral12b_inst",
     "mistral7b_inst",
     # "olmo2_1124_13b_inst",
     "olmo2_1124_7b_inst",
+    "qwen3_8b"
 ]
 
 model_num_layers = {
@@ -23,6 +24,7 @@ model_num_layers = {
     "olmo2_1124_13b_inst": 40,
     "mistral12b_inst": 40,
     "olmo2_0325_32b_inst": 60,
+    "qwen3_8b": 36,
 }
 
 
